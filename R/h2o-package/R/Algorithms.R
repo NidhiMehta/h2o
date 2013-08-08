@@ -177,3 +177,12 @@ setMethod("h2o.getTree", signature(forest="H2ORForestModel", k="numeric", plot="
 #            res = h2o.__remoteSend(object@data@h2o, h2o.__PAGE_INSPECT, key=res$response$redirect_request_args$key)
 #            result = new("H2OParsedData", h2o=object@data@h2o, key=res$key)
 #          })
+
+setMethod("h2o.glmgrid", signature(x="character", y="character", data="H2OParsedData", family="character", nfolds="numeric", alpha="numeric", lambda="numeric"),
+          function(x, y, data, family, nfolds, alpha, lambda) {
+                    for(i in 1:length(lambda)){
+                               for(j in 1:length(alpha)){
+                                         h2o.glm(x, y, data, family, nfolds, alpha[j], lambda[i])
+                                         }
+                     }
+          	})
